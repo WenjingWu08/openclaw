@@ -5,11 +5,11 @@ set -e
 # OpenClaw 一键安装脚本
 #
 # 用法（curl 直接安装）:
-#   curl -fsSL https://raw.githubusercontent.com/ken196502/utm-ubuntu-openclaw-config/refs/heads/master/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/WenjingWu08/openclaw/refs/heads/master/install.sh | bash
 
 # ═══════════════════════════════════════════════════════
 
-GITHUB_RAW="https://raw.githubusercontent.com/ken196502/utm-ubuntu-openclaw-config/refs/heads/master"
+GITHUB_RAW="https://raw.githubusercontent.com/WenjingWu08/openclaw/refs/heads/master"
 
 OPENCLAW_DIR="$HOME/.openclaw"
 ENV_FILE="$OPENCLAW_DIR/.env"
