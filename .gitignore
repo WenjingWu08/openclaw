@@ -1,0 +1,6 @@
+*
+!workspace/
+!workspace/*.md
+!openclaw.json
+!.gitignore
+!install.sh
