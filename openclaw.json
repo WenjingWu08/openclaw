@@ -1,10 +1,37 @@
 {
+  "browser": {
+    "enabled": true,
+    "executablePath": "${BROWSER_PATH}",
+    "defaultProfile": "openclaw"
+  },
+  "acp": {
+    "enabled": true,
+    "dispatch": {
+      "enabled": true
+    },
+    "backend": "acpx",
+    "defaultAgent": "opencode",
+    "allowedAgents": [
+      "pi",
+      "claude",
+      "codex",
+      "opencode",
+      "gemini"
+    ],
+    "maxConcurrentSessions": 8,
+    "stream": {
+      "coalesceIdleMs": 300,
+      "maxChunkChars": 1200
+    },
+    "runtime": {
+      "ttlMinutes": 120
+    }
+  },
   "models": {
     "mode": "merge",
     "providers": {
       "${LLM_PROVIDER_ID}": {
         "baseUrl": "${LLM_BASE_URL}",
-        "apiKey": "${LLM_API_KEY}",
         "auth": "api-key",
         "api": "openai-completions",
         "models": [
@@ -13,7 +40,9 @@
             "name": "${LLM_MODEL_ID}",
             "api": "openai-completions",
             "reasoning": false,
-            "input": ["text"],
+            "input": [
+              "text"
+            ],
             "cost": {
               "input": 0,
               "output": 0,
@@ -41,6 +70,10 @@
         "mode": "safeguard"
       },
       "blockStreamingDefault": "off",
+      "heartbeat": {
+        "every": "30m",
+        "target": "last"
+      },
       "maxConcurrent": 4,
       "subagents": {
         "maxConcurrent": 8
@@ -52,16 +85,17 @@
   },
   "tools": {
     "profile": "full",
+    "allow": [
+      "*"
+    ],
     "web": {
       "search": {
         "enabled": true,
         "provider": "brave",
-        "apiKey": "${BRAVE_SEARCH_API_KEY}",
         "maxResults": 5,
         "timeoutSeconds": 30
       }
     },
-    "allow": ["*"],
     "sessions": {
       "visibility": "all"
     }
@@ -79,9 +113,15 @@
     "internal": {
       "enabled": true,
       "entries": {
-        "session-memory": { "enabled": true },
-        "command-logger": { "enabled": true },
-        "boot-md":        { "enabled": true }
+        "session-memory": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "boot-md": {
+          "enabled": true
+        }
       }
     }
   },
@@ -89,7 +129,9 @@
     "whatsapp": {
       "enabled": true,
       "dmPolicy": "allowlist",
-      "allowFrom": ["${WHATSAPP_ALLOW_FROM}"],
+      "allowFrom": [
+        "${WHATSAPP_ALLOW_FROM}"
+      ],
       "groupPolicy": "open",
       "debounceMs": 0,
       "mediaMaxMb": 50
@@ -99,6 +141,17 @@
       "dmPolicy": "pairing",
       "botToken": "${TELEGRAM_BOT_TOKEN}",
       "groupPolicy": "open",
+      "streaming": "partial"
+    },
+    "slack": {
+      "mode": "socket",
+      "webhookPath": "/slack/events",
+      "enabled": true,
+      "botToken": "${SLACK_BOT_TOKEN}",
+      "appToken": "${SLACK_APP_TOKEN}",
+      "userTokenReadOnly": true,
+      "groupPolicy": "allowlist",
+      "nativeStreaming": true,
       "streaming": "partial"
     },
     "feishu": {
@@ -125,18 +178,13 @@
       "stream": false
     }
   },
-  "browser": {
-    "enabled": true,
-    "executablePath": "${BROWSER_PATH}",
-    "defaultProfile": "openclaw"
-  },
   "gateway": {
     "port": 18789,
     "mode": "local",
     "bind": "loopback",
     "auth": {
       "mode": "token",
-      "token": "${GATEWAY_TOKEN}"
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
     },
     "tailscale": {
       "mode": "off",
@@ -158,9 +206,8 @@
       "nodeManager": "pnpm"
     }
   },
-  "plugins": {
-    "entries": {
-      "feishu": { "enabled": true }
-    }
+  "meta": {
+    "lastTouchedVersion": "2026.3.22",
+    "lastTouchedAt": "2026-03-23T15:07:12.135Z"
   }
 }
